@@ -1,0 +1,5 @@
+SERVER_ADDRESS channelname.jtvirc.com
+SERVER_PORT 6667
+CHANNEL_NAME #channelname
+NAME botname
+PASSWORD botpassword

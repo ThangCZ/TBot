@@ -50,10 +50,6 @@ namespace TBot
     {
         conn.Write("JOIN "+chan);
     }
-    /*void Bot::Join()
-    {
-        conn.Write("JOIN "+configmap["CHANNEL_NAME"]);
-    }*/
     void Bot::Message(const std::string &reciever, const std::string &message)
     {
         conn.Write("PRIVMSG " + reciever + " :" + message);
@@ -67,8 +63,6 @@ namespace TBot
         for(User* i : user_holder)
             if(boost::iequals(name, i->GetName()))
                 return;
-        //User newuser(name, isop);
-        //user_holder.push_back(newuser);
         user_holder.push_back(new User(name, isop));
         Logger::Log("Info", "New user " + name + " was registered.");
     }

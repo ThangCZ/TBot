@@ -68,7 +68,7 @@ namespace TBot
     }
     void Bot::HandlerUserMesssage(User *user, std::string &message)
     {
-        if(!std::any_of(message.begin(),message.end(), ::islower) /*&& !user.IsOp()*/)
+        if(!std::any_of(message.begin(),message.end(), ::islower) && !user->IsOp())
         {
             unsigned int seconds = user->IssueWarning()*300;
             std::ostringstream stringstr;
@@ -77,6 +77,22 @@ namespace TBot
             stringstr.str("");
             stringstr << user->GetName() << ": Don't use caps, please. Warning number " << user->GetWarnings() << " issued";
             Message(configmap["CHANNEL_NAME"], stringstr.str());
+            return;
+        }
+        if(boost::iequals(message, "!t_about"))
+        {
+            Message(configmap["CHANNEL_NAME"], "I'm a humble bot made by Thang. I'm an open source project, fork me on GitHub (ThangCZ/TBot)");
+            return;
+        }
+        if(boost::iequals(message, "!t_stats"))
+        {
+            std::ostringstream stringstr;
+            int onlineusers = 0;
+            for(User* usr : user_holder)
+                if(usr->IsOnline()) onlineusers++;
+            stringstr << "Amount of unique users: " << user_holder.size() << " Online users: " << onlineusers;
+            Message(configmap["CHANNEL_NAME"], stringstr.str());
+            return;
         }
     }
 }
